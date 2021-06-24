@@ -84,8 +84,10 @@ class PerturbationLpNorm(Perturbation):
         if not isinstance(eps, Number):
             if not isinstance(eps, torch.Tensor):
                 self.eps = torch.tensor(eps)
-                if len(self.eps.shape) == 1:
-                    self.eps = torch.diag(self.eps)
+            else:
+                self.eps = eps
+            if len(self.eps.shape) == 1:
+                self.eps = torch.diag(self.eps)
             assert self.eps.shape[0] == self.eps.shape[1], "Argument [eps] must form a n by n square matrix."
             self.norm = 2
         else:
